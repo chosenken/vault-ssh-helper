@@ -6,6 +6,8 @@ EXTERNAL_TOOLS=\
 
 default: build
 
+docker: bootstrap dev
+
 build: generate
 	@mkdir -p bin/
 	go build -o bin/vault-ssh-helper
