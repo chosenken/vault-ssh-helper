@@ -6,6 +6,7 @@ EXTERNAL_TOOLS=\
 
 default: build
 
+# runs the dev target in a docker container.
 docker: bootstrap dev
 
 build: generate

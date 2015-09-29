@@ -19,7 +19,7 @@ This helper is not a PAM module, but it does the job of one. Agent's binary is r
 an external command using `pam_exec.so` with access to password. Graceful execution
 and exit of this command is a 'requisite' for authentication to be successful. If
 the OTP is not validated, the binary exits with a non-zero status and hence the
-desired effect is achieved. 
+desired effect is achieved.
 
 PAM modules are supposed to be shared object files and Go (currently) does not
 support creation of `.so` files. It was a choice between writing a PAM module in
@@ -52,6 +52,15 @@ Build and install Vault SSH Agent.
 ```shell
 $ make
 $ make install
+```
+
+Alternatively, you can build the Vault SSH Agent using a docker container if you
+do not have go installed locally, or if you don't want the dependencies installed
+locally.  Execute the buildWithDocker.sh file.  Once it is complete the binary will
+be in the bin folder.
+
+```shell
+$ ./buildWithDocker.sh
 ```
 
 Follow the instructions below and modify SSH server, PAM configurations and configure
@@ -89,7 +98,7 @@ Agent's configuration is written in [HashiCorp Configuration Language (HCL)][HCL
 By proxy, this means that Agent's configuration is JSON-compatible. For more
 information, please see the [HCL Specification][HCL].
 
-### Properties 
+### Properties
 |Property           |Description|
 |-------------------|-----------|
 |`vault_addr`       |[Required]Address of the Vault server.
@@ -109,7 +118,7 @@ tls_skip_verify=false
 
 PAM Configuration
 --------------------------------
-Modify `/etc/pam.d/sshd` file. 
+Modify `/etc/pam.d/sshd` file.
 
 ```hcl
 #@include common-auth
@@ -166,4 +175,3 @@ Vault SSH Backend's pull request: https://github.com/hashicorp/vault/pull/385
 
 
 [HCL]: https://github.com/hashicorp/hcl "HashiCorp Configuration Language (HCL)"
-
