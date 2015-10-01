@@ -7,7 +7,10 @@ EXTERNAL_TOOLS=\
 default: build
 
 # runs the dev target in a docker container.
-docker: bootstrap dev
+docker:
+	docker run --rm -v "$(PWD)":/go/src/github.com/hashicorp/vault-ssh-helper -w /go/src/github.com/hashicorp/vault-ssh-helper golang make dockerB
+
+dockerB: bootstrap dev
 
 build: generate
 	@mkdir -p bin/
